@@ -3,7 +3,7 @@
 import axios from "axios"
 import {auth} from "@clerk/nextjs/server"
 
-export const getAurinkoAuthUrl = async(serviceType: 'Google' | 'Office365') => {
+export const getAurinkoAuthUrl = async(serviceType: 'Google' | 'Office365' | 'IMAP') => {
     const { userId } = await auth() 
 
     if(!userId) throw new Error("Unauthorized")
