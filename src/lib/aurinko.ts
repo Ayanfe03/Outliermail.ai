@@ -3,7 +3,7 @@
 import axios from "axios"
 import {auth} from "@clerk/nextjs/server"
 
-export const getAurinkoAuthUrl = async(serviceType: 'Google' | 'Office365' | 'IMAP') => {
+export const getAurinkoAuthUrl = async(serviceType: 'Google' | 'Office365') => {
     const { userId } = await auth() 
 
     if(!userId) throw new Error("Unauthorized")
@@ -21,7 +21,7 @@ export const getAurinkoAuthUrl = async(serviceType: 'Google' | 'Office365' | 'IM
 
 export const exchangeCodeForAccessToken = async(code: string) => {
     try {
-        const response = await axios.post('https:/api/auth/token/{code}', {}, {
+        const response = await axios.post(`https:/api.aurinko.io/v1/auth/token/${code}`, {}, {
             auth: {
                 username: process.env.AURINKO_CLIENT_ID as string,
                 password: process.env.AURINKO_CLIENT_SECRET as string
