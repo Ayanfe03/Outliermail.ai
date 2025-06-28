@@ -30,6 +30,8 @@ model Account {
     nextDeltaToken String?
 
     user User @relation(fields: [userId], references: [id])
+    threads Thread[]
+    emailAddresses EmailAddress[]
 }
 
 model Thread {
