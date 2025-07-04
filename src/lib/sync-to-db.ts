@@ -2,13 +2,17 @@ import type { EmailMessage, EmailAddress, EmailAttachment } from "@/types";
 import pLimit from "p-limit";
 import { db } from "@/server/db";
 
-
+// Aurinko app trial has ended, find alternative for integrating with email clients
 export async function syncEmailsToDatabase(emails: EmailMessage[], accountId: string) {
     console.log('attempting to sync emails to database', emails.length);
-    const limit = pLimit(10); 
+    const limit = pLimit(5); 
 
     try {
-        Promise.all(emails.map((email, index) => upsertEmail(email, accountId, index)))
+        //Promise.all(emails.map((email, index) => upsertEmail(email, accountId, index)))
+
+        for (const email of emails) {
+            await upsertEmail(email, accountId, 0);
+        }
     } catch (error) {
         console.error('Oops', error);
     }
